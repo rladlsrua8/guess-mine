@@ -1,5 +1,6 @@
 import { TSInterfaceBody } from "babel-types";
 import { O_DSYNC } from "constants";
+import { initSockets } from "./sockets";
 
 const NICKNAME = "nickname";
 const LOGGED_OUT = "loggedOut";
@@ -11,8 +12,9 @@ const body = document.querySelector("body");
 const loginForm = document.getElementById("jsLogin");
 
 const logIn = nickname => {
-  window.socket = io("/");
-  window.socket.emit(window.events.setNickname, { nickname });
+  const socket = io("/");
+  socket.emit(window.events.setNickname, { nickname });
+  initSockets(socket);
 };
 
 if (nickname === null) {
